@@ -70,7 +70,7 @@ def create_rag_chain(pdf_path: str):
         vector_store = LangChainPinecone.from_existing_index(index_name=index_name, embedding=embeddings)
 
     retriever = vector_store.as_retriever()
-    llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash-latest", temperature=0)
+    llm = ChatGoogleGenerativeAI(model="gemini-1.5-flash", temperature=0)
     prompt = ChatPromptTemplate.from_template("""
 You are an expert insurance policy analyst. Your job is to give a clear and concise answer to a question about the policy.
 Based *only* on the provided context, answer the user's question with a single line starting with "Yes,", "No,", or "Uncertain,".
@@ -86,7 +86,7 @@ Question: {input}
     return create_retrieval_chain(retriever, document_chain)
 
 if __name__ == "__main__":
-    PDF_FILE_PATH = "policy.pdf"
+    PDF_FILE_PATH = r"C:\Users\pradh\Downloads\ICICI_IPru_iProtect_Supreme.pdf"
     print("Initializing the Insurance Policy RAG system with Pinecone and PyPDF Extractor...")
     rag_chain = create_rag_chain(pdf_path=PDF_FILE_PATH)
     print("\n✅ System ready. Ask your questions about the insurance policy.")
